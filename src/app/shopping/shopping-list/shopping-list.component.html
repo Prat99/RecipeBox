@@ -1,0 +1,21 @@
+<div class='row'>
+  <div class='col-lg-12'>
+    <app-shopping-edit></app-shopping-edit>
+    <br>
+    <ul class='list-group'>
+      <a style='cursor:pointer;'>
+        <li class='list-group-item'*ngFor='let ing of ingredients; let i = index'>{{ing.name}}({{ing.amount}})
+          <div class='pull-right'>
+          <button type='button' class='btn btn-danger' (click)='delete(i, ing.name)'>Delete</button>
+          <button type='button' class='btn btn-success'(click)='edit(i, ing.name)'>Edit</button>
+          </div>
+          <ul class='' *ngIf='ing.name==isEdit'>  
+            <li class=''>
+              <input placeholder='change amount' class='form-control' [(ngModel)]='ing.amount'>
+            </li>
+          </ul>
+        </li>
+      </a>
+    </ul>
+  </div>
+  </div>
