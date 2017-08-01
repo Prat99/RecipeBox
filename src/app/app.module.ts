@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { RecipesComponent } from './recipe-book/recipes/recipes.component';
 import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
 import { RecipeDetailsComponent } from './recipe-book/recipe-details/recipe-details.component';
+import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
+
 import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping/shopping-list/shopping-edit/shopping-edit.component';
 
@@ -32,7 +34,8 @@ import { HomeComponent } from './home/home.component';
     ShoppingListComponent,
     ShoppingEditComponent,
     DropdownDirective,
-    HomeComponent
+    HomeComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,

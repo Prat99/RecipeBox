@@ -27,7 +27,7 @@
        Managerecipes <span class="caret"></span></button>
        <ul class="dropdown-menu" role="menu">
          <li><a (click)='addToShoppingList()' style="cursor:pointer;">To shopping list</a></li> 
-         <li><a href="#">edit recipe</a></li>
+         <li><a [routerLink]="['edit']">edit recipe</a></li>
          <li><a href="#">delete recipe</a></li>
        </ul>
    </div>

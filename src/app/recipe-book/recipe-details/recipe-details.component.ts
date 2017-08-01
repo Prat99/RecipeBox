@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterContentInit} from '@angular/core';
 import {RecipeService} from '../services/recipe.service';
 import {ShoppingListService} from '../../shopping/services/shopping-list.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -11,7 +12,8 @@ import {ShoppingListService} from '../../shopping/services/shopping-list.service
 export class RecipeDetailsComponent implements OnInit {
  public detailView:boolean = false;
  public recipeDetails;
-  constructor(private recipeService$: RecipeService, private shpService$:ShoppingListService) { }
+ id:number;
+  constructor(private recipeService$: RecipeService, private shpService$:ShoppingListService, private route:ActivatedRoute) { }
   ngOnInit()
   {
       this.recipeService$.recipeSelected.subscribe(
@@ -23,12 +25,19 @@ export class RecipeDetailsComponent implements OnInit {
       (error)=>{console.log(error);},
       ()=>{ console.log('complete call back:::: ');
     }); 
+    this.route.params.subscribe(
+      (params) => {this.id=params['id']}
+    );
+    this.recipeDetails = this.recipeService$.getRecipesById(this.id);
+    if(this.recipeDetails)
+    {
+      this.detailView = true;
+    }
+   
     
   }
   addToShoppingList()
   {
-  //  this.recipeService$.ingredientList.emit('shoppingList item');
-  //  console.log('add to addToShoppingList clicked::: '+this.recipeDetails.ingredients);
       this.shpService$.addIngredientToShopping(this.recipeDetails.ingredients);
   }
 }

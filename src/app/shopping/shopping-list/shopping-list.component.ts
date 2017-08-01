@@ -10,9 +10,10 @@ import {RecipeService} from '../../recipe-book/services/recipe.service';
 })
 export class ShoppingListComponent implements OnInit {
   groceryItem:any;
+  id:number;
   constructor(private shoppingList$: ShoppingListService, private recipeService$: RecipeService) { }
   private ingredients: Ingredients[];
-  isEdit:any;
+  isEdit:boolean;
   ngOnInit() {
       this.ingredients = this.shoppingList$.getIngredients(); // to get the default ingredients
 
@@ -31,9 +32,9 @@ export class ShoppingListComponent implements OnInit {
           this.ingredients.splice(index,1);
           console.log('inside delete '+ing);
   }
-  edit(index, ing)
+  edit(index)
   {
-    console.log(ing);
-    this.isEdit = this.ingredients[index].name;  
+    this.isEdit = !this.isEdit;
+    this.id=index;
   }
 }

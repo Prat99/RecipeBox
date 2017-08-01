@@ -7,9 +7,9 @@
         <li class='list-group-item'*ngFor='let ing of ingredients; let i = index'>{{ing.name}}({{ing.amount}})
           <div class='pull-right'>
           <button type='button' class='btn btn-danger' (click)='delete(i, ing.name)'>Delete</button>
-          <button type='button' class='btn btn-success'(click)='edit(i, ing.name)'>Edit</button>
+          <button type='button' class='btn btn-success'(click)='edit(i)'>Edit</button>
           </div>
-          <ul class='' *ngIf='ing.name==isEdit'>  
+          <ul class='' *ngIf='isEdit==true&&id==i'>  
             <li class=''>
               <input placeholder='change amount' class='form-control' [(ngModel)]='ing.amount'>
             </li>

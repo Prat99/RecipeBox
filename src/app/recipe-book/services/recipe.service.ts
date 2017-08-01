@@ -12,5 +12,9 @@ import {Ingredients} from '../../shared/ingredients.model';
   {
     return this.recipes.slice();
   }
+  getRecipesById(index)
+  {
+    return this.recipes[index];
+  }
     
 }

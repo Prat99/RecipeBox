@@ -35,9 +35,11 @@
   <hr>
   <div class='row'>
     <div class='col-lg-6'>
-      <div class="list-group" *ngFor='let recipe of recipes'>
+      <div class="list-group" *ngFor='let recipe of recipes; let i = index'>
         <a class="list-group-item clearfix"
-           (click)='viewDetails(recipe)'>
+           [routerLink]="[i]"
+           routerLinkActive='active'
+           (click)='viewDetails(recipe)' style="cursor:pointer;">
           <div class='pull-left'>
           <h4 class="list-group-item-heading">{{recipe.name}}</h4>
           <p class="list-group-item-text">{{recipe.text}}</p>

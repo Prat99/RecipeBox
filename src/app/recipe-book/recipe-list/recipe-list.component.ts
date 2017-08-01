@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Recipes } from './recipe.model';
 import {RecipeService} from '../services/recipe.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class RecipeListComponent implements OnInit {
   public isNewRecipe:boolean = false;
   public recipes:Recipes[] = [];
   public newItem:any = {name:'',imagePath:'',text:''};
-  constructor(private recipeService$: RecipeService) { }
+  constructor(private recipeService$: RecipeService, private route:ActivatedRoute) { }
 
   ngOnInit() 
   {
