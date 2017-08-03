@@ -4,8 +4,9 @@
     <br>
     <ul class='list-group'>
       <a style='cursor:pointer;'>
-        <li class='list-group-item'*ngFor='let ing of ingredients; let i = index'>{{ing.name}}({{ing.amount}})
-          <div class='pull-right'>
+        <li class='list-group-item'*ngFor='let ing of ingredients; let i = index'
+         (click)='addItemToEdit(i)'>{{ing.name}}({{ing.amount}})
+          <!--<div class='pull-right'>
           <button type='button' class='btn btn-danger' (click)='delete(i, ing.name)'>Delete</button>
           <button type='button' class='btn btn-success'(click)='edit(i)'>Edit</button>
           </div>
@@ -13,7 +14,7 @@
             <li class=''>
               <input placeholder='change amount' class='form-control' [(ngModel)]='ing.amount'>
             </li>
-          </ul>
+          </ul>-->
         </li>
       </a>
     </ul>

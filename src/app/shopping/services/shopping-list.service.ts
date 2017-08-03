@@ -1,37 +1,40 @@
 import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import {Ingredients} from '../../shared/ingredients.model';
 import {RecipeService} from '../../recipe-book/services/recipe.service';
+import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class ShoppingListService {
   Items = new EventEmitter<Ingredients>();
-  ingredients: Ingredients[] = [new Ingredients('jack fruit',2), new Ingredients('onion',20),
-                                         new Ingredients('Bread',5)];
-  shoppingIngredients = new EventEmitter<Ingredients[]>();
+  item:Ingredients;
+  startedEditing = new Subject<number>();
+  ingredients: Ingredients[] = [new Ingredients('jack fruit',2), new Ingredients('onion',20),new Ingredients('Bread',5)];
+  shoppingIngredients = new Subject<Ingredients[]>();
   constructor(private recService:RecipeService) { }
-//  getShoppingListItems()
-//  {
-//    this.recService.ingredientList.subscribe(
-//      (resList)=>{this.shoppingIngredients.push(resList)
-//                  console.log('inside the getShoppingListItems'+this.shoppingIngredients);
-//      });
-//      return this.shoppingIngredients;
-//  }
-    getIngredients() {
-    return this.ingredients.slice();
+  getIngredients() {
+    return this.ingredients;
   }
   addIngredient(ingr:Ingredients)
   {
         this.ingredients.push(ingr);
-        this.shoppingIngredients.emit(this.ingredients.slice());
+        this.shoppingIngredients.next(this.ingredients.slice());
   }
   addIngredientToShopping(ingredients:Ingredients[])
   {
-    //  for(let ing of ingredients)
-    //  {
-    //     console.log('inside ShoppingListService::: '+ing);
-    //     this.addIngredient(ing);  
-    //  }
-        this.ingredients.push(...ingredients);
-        this.shoppingIngredients.emit(this.ingredients.slice());
+        this.ingredients.push(...ingredients);// spread operator changes array to list type objects
+        this.shoppingIngredients.next(this.ingredients.slice());
+  }
+  addEditedIngredient(index, newIngredient)
+  {
+      this.ingredients[index] = newIngredient;
+      this.shoppingIngredients.next(this.ingredients.slice());
+  }
+  getEditItem(index:number)
+  {
+   return this.ingredients[index];
+  }
+  deleteItem(index)
+  {
+    this.ingredients.splice(index,1);
+    this.shoppingIngredients.next(this.ingredients.slice());
   }
 }

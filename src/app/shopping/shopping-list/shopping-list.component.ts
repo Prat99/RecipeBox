@@ -2,6 +2,7 @@ import { Component, OnInit, AfterContentInit } from '@angular/core';
 import {Ingredients} from '../../shared/ingredients.model';
 import {ShoppingListService} from '../services/shopping-list.service';
 import {RecipeService} from '../../recipe-book/services/recipe.service';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-shopping-list',
@@ -11,30 +12,18 @@ import {RecipeService} from '../../recipe-book/services/recipe.service';
 export class ShoppingListComponent implements OnInit {
   groceryItem:any;
   id:number;
+  ingredients: Ingredients[];
+ 
   constructor(private shoppingList$: ShoppingListService, private recipeService$: RecipeService) { }
-  private ingredients: Ingredients[];
   isEdit:boolean;
   ngOnInit() {
       this.ingredients = this.shoppingList$.getIngredients(); // to get the default ingredients
-
       this.shoppingList$.shoppingIngredients.subscribe(
       (ingredients:Ingredients[]) => { this.ingredients = ingredients; console.log('default ingredientList::'+this.ingredients);
-      }); // to get the ingredients from recipes compoenent
-          
-      this.shoppingList$.Items.subscribe(
-      (ingredientsName:Ingredients) => { 
-       console.log("inside subscribe grocery::::: "+ingredientsName);
-        this.ingredients.push(ingredientsName);
-      });// to get the ingredients added 
+      }); // to get the ingredients from recipes component
   }
-  delete(index, ing)
-  {
-          this.ingredients.splice(index,1);
-          console.log('inside delete '+ing);
-  }
-  edit(index)
-  {
-    this.isEdit = !this.isEdit;
-    this.id=index;
-  }
+    addItemToEdit(index)
+    {
+       this.shoppingList$.startedEditing.next(index);
+    }
 }
