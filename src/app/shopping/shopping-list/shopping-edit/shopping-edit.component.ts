@@ -11,14 +11,12 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
- public newItem = {name:'', amount:''};
+ newItem:Ingredients = {name:'', amount:null};
  isEdit:boolean = false;
  editedItem:Ingredients;
  id:number;
  editItemIndex:number;
  subscription:Subscription;
- @ViewChild('name') name: ElementRef;
- @ViewChild('amount') amount: ElementRef;
  @ViewChild('itemForm') slForm:NgForm;
  constructor(private shoppingList$: ShoppingListService) { }
   ngOnInit() {
@@ -27,7 +25,8 @@ export class ShoppingEditComponent implements OnInit {
                        this.editItemIndex=index;
                        this.isEdit=true;
                        this.editedItem=this.shoppingList$.getEditItem(index);
-                       this.slForm.setValue({name:this.editedItem.name,amount:this.editedItem.amount});                 
+                       //this.slForm.setValue({name:this.editedItem.name,amount:this.editedItem.amount});                 
+                       this.newItem = {name:this.editedItem.name, amount:this.editedItem.amount};
       });
   }
   addItem(item)
@@ -38,14 +37,17 @@ export class ShoppingEditComponent implements OnInit {
     }
     else
     this.shoppingList$.addIngredient(item);
-    
+    this.clear();
     this.isEdit=false;
   }
    delete()
   {
      this.shoppingList$.deleteItem(this.editItemIndex);
-     this.name.nativeElement.value = '';
-     this.amount.nativeElement.value = ''; 
+     this.clear(); 
+  }
+  clear()
+  {
+    this.slForm.reset();
   }
   
 }

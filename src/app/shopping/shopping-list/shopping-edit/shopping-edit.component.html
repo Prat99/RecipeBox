@@ -5,21 +5,18 @@
       <div class=" col-md-5 form-group">
         <label for="usr">Name:</label>
         <input type="text" class="form-control" id="usr"
-        ngModel 
+        [(ngModel)]="newItem.name" 
         #name 
         name='name'
-        (change)='newItem.name'
          required
-       
          >
       </div>
       <div class="col-md-2 form-group">
         <label for="amount">Amount:</label>
         <input type="number" class="form-control" id="amount" 
-        ngModel 
+        [(ngModel)]="newItem.amount" 
         #amount 
-        name='amount' 
-        (change)='newItem.amount'
+        name='amount'
         required
         pattern="^[1-9]+[0-9]*$"
         >
@@ -28,7 +25,8 @@
   <div class='row'>
     <div class='col-md-9'>
       <button type='submit' class='btn btn-primary' [disabled]="!itemForm.valid">{{isEdit ? 'Update' : 'Add'}}</button>
-      <button type='button' class='btn btn-danger' (click)='delete()'>Delete</button>
+      <button type='button' class='btn btn-danger' (click)='delete()' *ngIf='isEdit'>Delete</button>
+      <button type='button' class='btn btn-success' (click)='clear()'>Clear</button>
       </div>
      </div> 
    </form>
