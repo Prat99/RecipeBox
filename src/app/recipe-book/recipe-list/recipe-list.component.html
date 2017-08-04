@@ -30,26 +30,40 @@
                   <div class='col-md-12'>
                     <div class='row'>
                      <div class='col-md-8'>
-                      <input type='text' placeholder='Ingredients' #name class='form-control' [(ngModel)]='ingredients.name'>
+                      <input type='text' placeholder='Ingredients'
+                       #name
+                        class='form-control'
+                        [(ngModel)]='ingredients.name'
+                        required
+                        >
                      </div>
                      <div class='col-md-2'>
-                      <input type='number' placeholder='Amount' #amount class='form-control'[(ngModel)]='ingredients.amount'>
+                      <input type='number' 
+                      placeholder='Amount' 
+                      #amount 
+                      class='form-control'
+                      [(ngModel)]='ingredients.amount'
+                      pattern="^[1-9]+[0-9]*$"
+                      required>
                      </div>
                      <div class='col-md-1'>
                        <button type='button' class='btn btn-primary' (click)='onIngredientsAdd(ingredients)'>+</button>
                      </div>
-                     <div class='col-md-1'>
-                       <button type='button' class='btn btn-danger'>X</button>
-                     </div>
                     </div>
                   </div>
                 </div>
-               
+               <br>
                 <div class='row'>
                   <div class='col-md-12'>
                     <div  *ngIf='isIngredients'>
-                     <ul>
-                       <li *ngFor='let ing of ingredientsAll'>{{ing.name}}({{ing.amount}})</li>
+                     <ul class='list-group'>
+                       <li class='list-group-item clearfix' *ngFor='let ing of ingredientsAll; let i = index'><span>
+                         {{ing.name}}({{ing.amount}})
+                         <button type='button' class='btn btn-danger pull-right '(click)='deleteIngredient(i)'>
+                           x
+                           </button>
+                           </span>
+                         </li>
                      </ul>
                     </div>
                   </div>
@@ -69,7 +83,7 @@
         <a class="list-group-item clearfix"
            [routerLink]="[i]"
            routerLinkActive='active'
-           (click)='viewDetails(recipe)' style="cursor:pointer;">
+           (click)='viewDetails(i)' style="cursor:pointer;">
           <div class='pull-left'>
           <h4 class="list-group-item-heading">{{recipe.name}}</h4>
           <p class="list-group-item-text">{{recipe.text}}</p>

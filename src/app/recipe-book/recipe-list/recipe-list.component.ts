@@ -14,10 +14,11 @@ export class RecipeListComponent implements OnInit {
 
   public isNewRecipe:boolean = false;
   public recipes:Recipes[] = [];
-  public newItem:any = {name:'',imagePath:'',text:''};
+  public newItem:Recipes = {name:'',imagePath:'',text:'',ingredients:[]};
   ingredients:Ingredients = {name:'',amount:null};
   ingredientsAll:Ingredients[]=[];
   isIngredients:boolean;
+  selectedRecipe:Recipes;
   @ViewChild('name') name:ElementRef;
   @ViewChild('amount') amount:ElementRef;
   constructor(private recipeService$: RecipeService, private route:ActivatedRoute) { }
@@ -25,28 +26,45 @@ export class RecipeListComponent implements OnInit {
   ngOnInit() 
   {
     this.recipes = this.recipeService$.getRecipes();
+
   }
-   viewDetails(recipe)
+   viewDetails(index:number)
    {
-    this.recipeService$.recipeSelected.emit(recipe);
-    console.log("inside recipe-list:::: "+recipe.name);
+    this.selectedRecipe = this.recipeService$.getRecipesById(index);
+    console.log("selected recipe::"+this.selectedRecipe);
+    this.recipeService$.recipeSelected.next(this.selectedRecipe);
    }
    addRecipe()  
    {
       this.isNewRecipe = !this.isNewRecipe;
+
    }
-   newRecipe(freshItem)
-   {
-        this.recipes.push(freshItem);
+   newRecipe(newRecipeItem:Recipes)
+  {    
+        const newRecipe = new Recipes(this.newItem.name,this.newItem.text,this.newItem.imagePath,this.ingredientsAll);
+        this.recipeService$.setRecipe(newRecipe);
+        console.log(":::::"+this.newItem.name);
+        console.log("complete recipe object::"+this.newItem.name,this.newItem.text,this.newItem.imagePath,this.ingredientsAll);
+        this.recipes = this.recipeService$.getRecipes();
         this.newItem = {name:'',text:'',imagePath:'', ingredients:[]};
+        this.clearIngredietsArray();
    }
    onIngredientsAdd(ingredients)
    {
      console.log(ingredients);
      this.isIngredients=true;
      this.ingredientsAll.push(ingredients);
+     this.ingredients = {name:'',amount:null};
      this.name.nativeElement.value = '';
      this.amount.nativeElement.value = '';
+   }
+   deleteIngredient(index)
+   {
+     this.ingredientsAll.splice(index,1);
+   }
+   clearIngredietsArray()
+   {
+      this.ingredientsAll = [];
    }
 
 }
