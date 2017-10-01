@@ -1,8 +1,13 @@
+import { StorageDataService } from './shared/storage-data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -22,6 +27,8 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import {ShoppingListService} from './shopping/services/shopping-list.service';
 import {RecipeService} from './recipe-book/services/recipe.service';
 import { HomeComponent } from './home/home.component';
+import { SigninComponent } from './login/signin/signin.component';
+import { SignupComponent } from './login/signup/signup.component';
 
 
 @NgModule({
@@ -35,7 +42,9 @@ import { HomeComponent } from './home/home.component';
     ShoppingEditComponent,
     DropdownDirective,
     HomeComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +52,12 @@ import { HomeComponent } from './home/home.component';
     HttpModule,
     routing,
     NguiOverlayModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
-  providers: [ShoppingListService, RecipeService],
+  providers: [ShoppingListService, RecipeService, StorageDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

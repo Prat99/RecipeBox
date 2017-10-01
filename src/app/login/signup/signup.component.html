@@ -1,0 +1,40 @@
+<div class='row'>
+  <div class='col-md-6'>
+    <h1>Sign Up</h1>
+<form #f='ngForm' (ngSubmit)='register(f.value)'>
+  <div class="form-group">
+    <label for="Fname">FirstName:</label>
+    <input type="text" class="form-control" id="fname" placeholder="First Name" required name='fname' [(ngModel)]='user.fname' #fname='ngModel'>
+    <span *ngIf='!fname.valid && fname.touched' class='help-error'>first name is required</span>
+  </div>
+  <div class="form-group">
+    <label for="lname">Last Name</label>
+    <input type="text" class="form-control" id="lname" placeholder="Last Name" required [(ngModel)]='user.lname' name='lname' #lname='ngModel'>
+    <span *ngIf='!lname.valid && lname.touched' class='help-error'>last name is required</span>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+    [(ngModel)]='user.email' name='email' #email='ngModel' email='true'>
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <span *ngIf='!email.valid && email.touched' class='help-error'>Please enter correct email address</span>
+  </div>
+  <div class='radio' *ngFor='let gender of genders'>
+    <label>
+    <input type='radio' [value]='gender' name='gender' ngModule required>{{gender}}
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name='password' [(ngModel)]='user.password' required #password='ngModel'>
+    <span *ngIf='!password.valid && password.touched' class='help-error'>password is required</span>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword2">Confirm Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" name='cpassword' [(ngModel)]='user.cpassword' required #cpassword='ngModel'>
+    <span *ngIf='!cpassword.valid && cpassword.touched' class='help-error'>password is required</span>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]='f.invalid'>Submit</button>
+</form>
+  </div>
+</div>

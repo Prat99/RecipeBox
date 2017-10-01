@@ -1,15 +1,36 @@
 <div class='row'>
+    <div class='col-md-12'>
     <div class='form-group'>
       <label for='name'>Name:</label>
-      <input id='name' class='form-control'type='text' [(ngModel)]='editItem.name'>
+      <input id='name' class='form-control'type='text' name='recipeName' [(ngModel)]='editItem.name' required>
     </div>
     <div class='form-group'> 
       <label for='name'>Image</label>
-      <input id='image' class='form-control'type='text' [(ngModel)]='editItem.imagePath'>
+      <input id='image' class='form-control'type='text' name='recipeImage' [(ngModel)]='editItem.imagePath' required>
     </div>
     <div class='form-group'>
       <label for='name'>description:</label>
-      <input id='description' class='form-control' type='text' [(ngModel)]='editItem.text'>
+      <input id='description' class='form-control' type='text' name='recipeDesc' [(ngModel)]='editItem.text' required>
     </div>
-    <button type='button' class='btn btn-primary' (click)='editItemRecipe(editItem)'>Edit</button>
+    <div class='row'>
+      <div *ngFor='let ing of editItem.ingredients; let i = index'>
+      <div class='col-md-8'>
+        <div class='form-group'>
+        <input type='text' class='form-control' [(ngModel)]='ing.name' required name='ingName'>
+        </div>
+      </div>
+      <div class='col-md-2'>
+        <div class='form-group'>
+        <input type='number' class='form-control' [(ngModel)]='ing.amount' required name='ingAmount'>
+        </div>
+      </div>
+      <div class='col-md-2'>
+        <button class='btn btn-danger' type='button'(click)=deleteIngredients(i)>x</button>
+      </div>
+      {{ing|json}}
+      </div>
+    </div>
+    <button type='submit' class='btn btn-primary' (click)='addIngredients(editItem)'>AddIngredients</button>
+    <button type='submit' class='btn btn-primary' (click)='editItemRecipe(editItem)'>Edit</button>
+    </div>
 </div>

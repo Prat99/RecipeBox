@@ -4,9 +4,13 @@ import {RecipesComponent} from './recipe-book/recipes/recipes.component';
 import {RecipeDetailsComponent} from './recipe-book/recipe-details/recipe-details.component';
 import {RecipeEditComponent} from './recipe-book/recipe-edit/recipe-edit.component';
 import {HomeComponent} from './home/home.component';
+import {SignupComponent} from './login/signup/signup.component';
+import {SigninComponent} from './login/signin/signin.component';
 
 
 const routes: Routes = [
+  {path:'signup', component:SignupComponent},
+  {path:'login', component:SigninComponent},
   { path: 'shoppinglist', component:ShoppingListComponent },
   { path: 'recipes', component: RecipesComponent, children:[
     { path: ':id', component: RecipeDetailsComponent },

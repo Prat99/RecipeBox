@@ -19,15 +19,21 @@ export class RecipeEditComponent implements OnInit {
       (params)=>{this.id = params['id']}
     );
     this.editItem = this.recipeService.getRecipesById(this.id);
+     console.log("edit Item::"+this.editItem.ingredients);
     if(this.editItem)
     {
       this.isEdit=true;
     }
   }
-  editItemRecipe(editItem)
+  editItemRecipe(value)
   {
-     console.log('edit recipe on rcipe page:::'+editItem);
+    // console.log('edit recipe on recipe page:::'+value);
+     //const newEditRecipe = new Recipes(editItem,);
      this.router.navigate(['../'],{relativeTo:this.route});
+  }
+  deleteIngredients(index:number)
+  {
+    this.recipeService.deleteIngredient(this.id, index);
   }
 
 }

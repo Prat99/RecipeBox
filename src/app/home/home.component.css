@@ -1,0 +1,26 @@
+.loginbtn, .signupbtn{
+    display: inline-block;
+    margin: 10px;
+}
+#homeComponent .signupbtn a{
+    color: #fff;
+    border:none;
+    display:inline-block;
+    border-radius: 4px;
+    background: #1ecd4e;
+    padding: 15px 30px;
+    box-shadow: 4px 4px 22px 1px #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+#homeComponent .loginbtn a{
+    color: #fff;
+    border-radius: 4px;
+     border:none;
+    display:inline-block;
+    background: #ff7300;
+    padding: 15px 30px;
+    box-shadow: 4px 4px 22px 1px #fff;
+    font-size: 18px;
+    font-weight: 600;
+}

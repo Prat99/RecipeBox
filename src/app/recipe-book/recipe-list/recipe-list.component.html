@@ -69,7 +69,7 @@
                   </div>
                 </div>
                   <br>
-                <button type='button' class='btn btn-primary' (click)='newRecipe(newItem)'>Add</button>
+                <button type='button' class='btn btn-primary' (click)='newRecipe(newItem, ingredientsAll)'>Add</button>
               </div> <!--isNewRecipe ends here-->   
               </div>        
             </div>
@@ -79,20 +79,22 @@
   <hr>
   <div class='row'>
     <div class='col-lg-6'>
-      <div class="list-group" *ngFor='let recipe of recipes; let i = index'>
+      <div *ngIf='recipes'>
+       <div class="list-group" *ngFor='let recipe of recipes; let i = index'>
         <a class="list-group-item clearfix"
            [routerLink]="[i]"
            routerLinkActive='active'
            (click)='viewDetails(i)' style="cursor:pointer;">
           <div class='pull-left'>
-          <h4 class="list-group-item-heading">{{recipe.name}}</h4>
-          <p class="list-group-item-text">{{recipe.text}}</p>
+              <h4 class="list-group-item-heading">{{recipe.name}}</h4>
+              <p class="list-group-item-text">{{recipe.text}}</p>
           </div>
-          <span class='pull-right'>
-          <img [src]="recipe.imagePath" class='img-responsive' style='max-height:50px;' alt="">
-          </span>
+             <span class='pull-right'>
+                <img [src]="recipe.imagePath" class='img-responsive' style='max-height:50px;' alt="">
+             </span>
         </a>
       </div>
+    </div>
     </div>
   </div>
 </div>
