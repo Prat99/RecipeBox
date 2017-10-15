@@ -1,3 +1,5 @@
+
+import { LoginService } from './login/login.service';
 import { StorageDataService } from './shared/storage-data.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -11,53 +13,41 @@ import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesComponent } from './recipe-book/recipes/recipes.component';
-import { RecipeListComponent } from './recipe-book/recipe-list/recipe-list.component';
-import { RecipeDetailsComponent } from './recipe-book/recipe-details/recipe-details.component';
-import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
-
-import { ShoppingListComponent } from './shopping/shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping/shopping-list/shopping-edit/shopping-edit.component';
+import { loginModule } from './login/login.module';
 
 import {routing} from './app.router';
-import { NguiOverlayModule } from '@ngui/overlay';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { DropdownDirective } from './shared/dropdown.directive';
 
 import {ShoppingListService} from './shopping/services/shopping-list.service';
 import {RecipeService} from './recipe-book/services/recipe.service';
 import { HomeComponent } from './home/home.component';
-import { SigninComponent } from './login/signin/signin.component';
-import { SignupComponent } from './login/signup/signup.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+
+import {canDeactivateGuard} from './recipe-book/recipe-list/guard/candeactivateguard.service';
+import {CanActivateViaAuthGuard, CanLoadTeamSection, Permissions, UserToken} from './login/guards/auth-guard.service';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailsComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
-    DropdownDirective,
     HomeComponent,
-    RecipeEditComponent,
-    SigninComponent,
-    SignupComponent
+    PagenotfoundComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    NguiOverlayModule,
-    ModalModule.forRoot(),
+    loginModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [ShoppingListService, RecipeService, StorageDataService],
+  providers: [ShoppingListService, RecipeService,
+              StorageDataService, LoginService, canDeactivateGuard, CanActivateViaAuthGuard,
+               CanLoadTeamSection, Permissions, UserToken],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

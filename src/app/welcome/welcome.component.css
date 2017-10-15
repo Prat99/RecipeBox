@@ -1,0 +1,28 @@
+.bg{
+     height: 100%; 
+     width: 100%;
+    /* Center and scale the image nicely */
+    background-image: url("http://localhost:4200/assets/images/recipes.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.8
+}
+.well-heading{
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        padding-top: 115px;
+}
+.well-heading h1{
+        color: #ff2311;
+    font-weight: bold;
+    font-size: 2.2em;
+    font-family: cursive;
+}
+.well-heading span{
+        color: #f9f9f9;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: cursive;
+}

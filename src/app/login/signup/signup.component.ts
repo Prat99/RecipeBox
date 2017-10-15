@@ -1,5 +1,9 @@
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 import { User} from './user.model';
 import { Component, OnInit } from '@angular/core';
+import {LoginService} from '../login.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,15 +13,20 @@ import { Component, OnInit } from '@angular/core';
 export class SignupComponent implements OnInit {
   user:User;
   genders:Array<string> = ['male', 'female'];
-  constructor() {
+  
+
+  constructor(private loginService:LoginService, private route:Router) {
     this.user = new User();
    }
  
   ngOnInit() {
   }
-   register(user)
+   register(user:NgForm)
    {
-     console.log("register user "+JSON.stringify(user));
-
+     console.log("register user "+user);
+     const email = user.value.email;
+     const password = user.value.password;
+     this.loginService.signUpUser(email, password);
+     this.route.navigate(['/recipes']);
    }
 }

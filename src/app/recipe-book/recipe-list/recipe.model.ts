@@ -4,7 +4,7 @@ export class Recipes{
     name:string;
     text:string;
     imagePath:string;
-    ingredients: Ingredients[];
+    ingredients?: Ingredients[];
  constructor(name, text, imagePath, ingredients)
     {
        this.name = name;
